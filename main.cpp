@@ -34,9 +34,11 @@ int main(int argc, char *argv[]) {
 
     if (rank == 0) {
         cout << "Number of processes is " << numberProcesses << "\n";
-        cout << "Enter file Name!\n";
+        /*cout << "Enter file Name!\n";
         scanf(" %s", imageFile);
         readImage(imageFile);
+        */
+        readImage("../res/out.pgm");
         //Now for requests, allocate appropriate memory
         requests = (MPI_Request *) malloc(sizeof(MPI_Request) * numberProcesses);
         statuses = (MPI_Status *) malloc(sizeof(MPI_Status) * numberProcesses);
@@ -91,8 +93,8 @@ void sendStripstoAllProcesses(int rank) {
             stripMatrix[i][j] = tempBuffer[i * WIDTH + j];
         }
     }
-    char* outFile = new char[4];
-    strcpy(outFile, "out");
+    char *outFile = new char[4];
+    strcpy(outFile, "outn");
     outFile[3] = rank + '0';
     strcat(outFile, ".pgm");
     writeData(outFile);
@@ -102,7 +104,7 @@ void writeData(char *outputFile) {
     FILE *fout;
     int i, j;
 
-    printf("[Proces %d] Writing output file\n", outputFile[3]);
+    printf("[Proces %c] Writing output file\n", outputFile[3]);
 
     if ((fout = fopen(outputFile, "w")) == NULL) {
         perror("Error opening output file");
@@ -117,7 +119,7 @@ void writeData(char *outputFile) {
             fprintf(fout, "%d\n", stripMatrix[i][j]);
     fclose(fout);
 
-    printf("[Proces %d]\tFinished writing output file\n", outputFile[3]);
+    printf("[Proces %c]\tFinished writing output file %s\n", outputFile[3], outputFile);
 }
 
 void horizontalStrips(int rank) {
