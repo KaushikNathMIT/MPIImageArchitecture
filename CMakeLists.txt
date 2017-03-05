@@ -19,3 +19,6 @@ if(MPI_LINK_FLAGS)
 endif()
 
 target_link_libraries(MPIImageArchitecture ${MPI_LIBRARIES})
+find_package( OpenCV REQUIRED )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+target_link_libraries( MPIImageArchitecture ${OpenCV_LIBS} )

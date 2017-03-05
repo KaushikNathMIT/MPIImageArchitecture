@@ -2,6 +2,7 @@
 #include "mpi.h"
 #include <strings.h>
 #include <cstring>
+#include <opencv2/opencv.hpp>
 
 void readImage(char *imageFile);
 
@@ -9,17 +10,30 @@ void horizontalStrips(int);
 
 void sendStripstoAllProcesses(int rank);
 
-void writeData(char *outputFile);
+void writeIntermediatoryImage();
+
+void stichImages();
+
+void cleanUp();
+
+void readImageForStiching(char *inputFile) ;
+
+void writeStichedImage(const char string[17]);
+
+void validateStripImage();
 
 using namespace std;
+using namespace cv;
 
 
 int numberProcesses, WIDTH, HEIGHT, MAX_COLOR, stripSize, stripStart, stripEnd;
 
-unsigned char *fullImage;
+unsigned char *fullImage, *stripImage;
 unsigned char **stripMatrix;
 short **imageResidual;
 short *fullImageResidual;
+char *outFile, *outputFile;
+unsigned char *tempBuffer;
 
 int main(int argc, char *argv[]) {
     int i, j, bufferInt[20], rank;
@@ -55,7 +69,7 @@ int main(int argc, char *argv[]) {
     MPI_Bcast(&MAX_COLOR, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     horizontalStrips(rank);
-    printf("\n[Proces %d] Image Width: %d X %d => strip size: %d (%d..%d)\n",
+    printf("\n[Process %d] Image Width: %d X %d => strip size: %d (%d..%d)\n",
            rank, WIDTH, HEIGHT, stripSize, stripStart, stripEnd);
 
     stripMatrix = (unsigned char **) malloc(stripSize * sizeof(unsigned int *));
@@ -64,14 +78,57 @@ int main(int argc, char *argv[]) {
     }
 
     sendStripstoAllProcesses(rank);
-    //checkValid()
-
+    writeIntermediatoryImage();
+    MPI_Barrier(MPI_COMM_WORLD);
+    //TODO: Do whatever you wnant to. The intermediatory images are generated in "/res/it". Apply any filter or operation you want.
+    stichImages();
+    if (rank==0) writeStichedImage("../res/final.pgm");
+    cleanUp();
     MPI_Finalize();
     return 0;
 }
 
+void cleanUp() {
+    free(outFile);
+    free(tempBuffer);
+    free(fullImage);
+    free(stripMatrix);
+}
+
+void stichImages() {
+    readImageForStiching(outputFile);
+    validateStripImage();
+    MPI_Gather(stripImage, WIDTH*stripSize, MPI_UNSIGNED_CHAR, fullImage,WIDTH*stripSize, MPI_UNSIGNED_CHAR, 0, MPI_COMM_WORLD);
+}
+
+void validateStripImage() {
+    for(int i=0;i<stripSize; i++) {
+        for(int j=0; j<WIDTH; j++) {
+            stripMatrix[i][j] = stripImage[i*WIDTH+j];
+        }
+    }
+    writeIntermediatoryImage();
+}
+
+void writeStichedImage(const char* outputFile) {
+    FILE *fout;
+    int i, j;
+
+    if ((fout = fopen(outputFile, "w")) == NULL) {
+        perror("Error opening output file");
+        exit(1);
+    }
+
+    fprintf(fout, "%s\n%d %d\n%d\n", "P2", WIDTH, HEIGHT, MAX_COLOR);
+    fprintf(fout, "#Created by Kaushik\n");
+
+    for (i = 0; i < HEIGHT; i++)
+        for (j = 0; j < WIDTH; j++)
+            fprintf(fout, "%d\n", fullImage[i*WIDTH+j]);
+    fclose(fout);
+}
 void sendStripstoAllProcesses(int rank) {
-    unsigned char *tempBuffer = new unsigned char[WIDTH * stripSize];
+    tempBuffer = new unsigned char[WIDTH * stripSize];
     MPI_Scatter(fullImage, stripSize * WIDTH, MPI_UNSIGNED_CHAR, tempBuffer, stripSize * WIDTH, MPI_UNSIGNED_CHAR, 0,
                 MPI_COMM_WORLD);
 
@@ -93,18 +150,19 @@ void sendStripstoAllProcesses(int rank) {
             stripMatrix[i][j] = tempBuffer[i * WIDTH + j];
         }
     }
-    char *outFile = new char[4];
+    outFile = new char[4];
     strcpy(outFile, "outn");
     outFile[3] = rank + '0';
     strcat(outFile, ".pgm");
-    writeData(outFile);
 }
 
-void writeData(char *outputFile) {
+void writeIntermediatoryImage() {
     FILE *fout;
     int i, j;
-
-    printf("[Proces %c] Writing output file\n", outputFile[3]);
+    outputFile = new char[10];
+    strcpy(outputFile, "../res/it/");
+    strcat(outputFile, outFile);
+    printf("[Proces %c] Writing output file\n", outputFile[13]);
 
     if ((fout = fopen(outputFile, "w")) == NULL) {
         perror("Error opening output file");
@@ -119,7 +177,7 @@ void writeData(char *outputFile) {
             fprintf(fout, "%d\n", stripMatrix[i][j]);
     fclose(fout);
 
-    printf("[Proces %c]\tFinished writing output file %s\n", outputFile[3], outputFile);
+    printf("[Process %c]\tFinished writing output file %s\n", outputFile[13], outputFile);
 }
 
 void horizontalStrips(int rank) {
@@ -138,6 +196,22 @@ void horizontalStrips(int rank) {
         stripEnd = HEIGHT - 1;
     }
 
+}
+
+void readImageForStiching(char *inputFile) {
+    printf("I have to read now %s", inputFile);
+    free(stripImage);
+    stripImage = (unsigned char *) malloc(WIDTH * stripSize * sizeof(unsigned char *));
+    int i, j, temp;
+    Mat matrix = imread(inputFile, 0);
+    //imshow("here", matrix);
+    //waitKey(0);
+    uint8_t *myData = matrix.data;
+    for (i = 0; i < stripSize; i++)
+        for (j = 0; j < WIDTH; j++) {
+            stripImage[i * WIDTH + j] = myData[i*WIDTH+j];
+        }
+    //fclose(fin);
 }
 
 void readImage(char *inputFile) {
