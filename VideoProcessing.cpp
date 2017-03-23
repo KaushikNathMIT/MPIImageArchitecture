@@ -24,13 +24,11 @@ void stichImages();
 
 void cleanUp();
 
-void readImageForStiching(char *inputFile) ;
+void readImageForStiching(char *inputFile);
 
 void writeStichedImage(const char string[17]);
 
 void validateStripImage();
-
-
 
 
 int numberProcesses, WIDTH, HEIGHT, MAX_COLOR, stripSize, stripStart, stripEnd;
@@ -54,55 +52,65 @@ int main(int argc, char *argv[]) {
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &numberProcesses);
-
-    if (rank == 0) {
-        cout << "Number of processes is " << numberProcesses << "\n";
-        VideoCapture cap(0);
-        Mat frame;
-        cap >> frame; // get a new frame from camera
-        cvtColor(frame, frame, COLOR_BGR2GRAY);
-        //readImage("../res/images.jpg");
-        readImage(frame);
-        //Now for requests, allocate appropriate memory
-        requests = (MPI_Request *) malloc(sizeof(MPI_Request) * numberProcesses);
-        statuses = (MPI_Status *) malloc(sizeof(MPI_Status) * numberProcesses);
-    }
-
-    //Start Communication
-    //cout<<"Communication started";
-
-    MPI_Bcast(&WIDTH, 1, MPI_INT, 0, MPI_COMM_WORLD);
-    MPI_Bcast(&HEIGHT, 1, MPI_INT, 0, MPI_COMM_WORLD);
-    MPI_Bcast(&MAX_COLOR, 1, MPI_INT, 0, MPI_COMM_WORLD);
-
-    horizontalStrips(rank);
-    printf("\n[Process %d] Image Width: %d X %d => strip size: %d (%d..%d)\n",
-           rank, WIDTH, HEIGHT, stripSize, stripStart, stripEnd);
-
+    WIDTH=640;
+    HEIGHT=480;
+    stripSize=HEIGHT/numberProcesses;
+    stripImage = (unsigned char *) malloc(WIDTH * stripSize * sizeof(unsigned char));
     stripMatrix = (unsigned char **) malloc(stripSize * sizeof(unsigned char *));
     for (i = 0; i < stripSize; i++) {
         stripMatrix[i] = (unsigned char *) malloc(WIDTH * sizeof(unsigned char));
     }
-    sendStripstoAllProcesses(rank);
-    stripImageMat = Mat(stripSize, WIDTH, CV_8U, stripMatrix);
-    stripImageMat.data=tempBuffer;
-    stripImageMat = stripImageMat(Rect(0,0, WIDTH, stripSize));
-    char winName[] = "window at rank ";
-    winName[15] = rank+'0';
-    winName[16] = '\0';
-    imshow(winName, stripImageMat);
-    waitKey(0);
+    fullImage = (unsigned char *) malloc(WIDTH * HEIGHT * sizeof(unsigned char));
+    while (1) {
+        if (rank == 0) {
+            VideoCapture cap(0);
+            Mat frame;
+            cap >> frame; // get a new frame from camera
+            cvtColor(frame, frame, COLOR_BGR2GRAY);
+            //readImage("../res/images.jpg");
+            readImage(frame);
+            //Start Communication
+            //cout<<"Communication started";
+        }
+
+        MPI_Bcast(&WIDTH, 1, MPI_INT, 0, MPI_COMM_WORLD);
+        MPI_Bcast(&HEIGHT, 1, MPI_INT, 0, MPI_COMM_WORLD);
+        MPI_Bcast(&MAX_COLOR, 1, MPI_INT, 0, MPI_COMM_WORLD);
+
+        horizontalStrips(rank);
+        //printf("\n[Process %d] Image Width: %d X %d => strip size: %d (%d..%d)\n", rank, WIDTH, HEIGHT, stripSize, stripStart, stripEnd);
 
 
-    writeIntermediatoryImage();
-    MPI_Barrier(MPI_COMM_WORLD);
-    //TODO: Do whatever you wnant to. The intermediatory images are generated in "/res/it". Apply any filter or operation you want.
-    GaussianBlur(stripImageMat, stripImageMat, Size(7,7), 1.5, 1.5);
-    Canny(stripImageMat, stripImageMat, 0, 30, 3);
-    stichImages();
-    if (rank==0) writeStichedImage("../res/final.pgm");
+        sendStripstoAllProcesses(rank);
+        stripImageMat = Mat(stripSize, WIDTH, CV_8U, stripMatrix);
+        stripImageMat.data = tempBuffer;
+        //stripImageMat = stripImageMat(Rect(0, 0, WIDTH, stripSize));
+        /*char winName[] = "window at rank ";
+        winName[15] = rank + '0';
+        winName[16] = '\0';
+        imshow(winName, stripImageMat);*/
+        //waitKey(0);
+
+
+        //writeIntermediatoryImage();
+        MPI_Barrier(MPI_COMM_WORLD);
+        //TODO: Do whatever you wnant to. The intermediatory images are generated in "/res/it". Apply any filter or operation you want.
+        GaussianBlur(stripImageMat, stripImageMat, Size(7, 7), 1.5, 1.5);
+        Canny(stripImageMat, stripImageMat, 0, 30, 3);
+        stichImages();
+        if (rank == 0) {
+            //writeStichedImage("../res/final.pgm");
+            Mat fullImageMat = Mat(HEIGHT, WIDTH, CV_8U, fullImage);
+            //stripImageMat.data = fullImage;
+            //stripImageMat = stripImageMat(Rect(0, 0, WIDTH, stripSize));
+            char finalWinName[] = "Final window ";
+            imshow(finalWinName, fullImageMat);
+        }
+        if (waitKey(1) == 27) break;
+    }
     cleanUp();
     MPI_Finalize();
+
     return 0;
 }
 
@@ -115,20 +123,11 @@ void cleanUp() {
 
 void stichImages() {
     readImageForStiching(outputFile);
-    //validateStripImage();
-    MPI_Gather(tempBuffer, WIDTH*stripSize, MPI_UNSIGNED_CHAR, fullImage,WIDTH*stripSize, MPI_UNSIGNED_CHAR, 0, MPI_COMM_WORLD);
+    MPI_Gather(tempBuffer, WIDTH * stripSize, MPI_UNSIGNED_CHAR, fullImage, WIDTH * stripSize, MPI_UNSIGNED_CHAR, 0,
+               MPI_COMM_WORLD);
 }
 
-void validateStripImage() {
-    for(int i=0;i<stripSize; i++) {
-        for(int j=0; j<WIDTH; j++) {
-            stripMatrix[i][j] = stripImage[i*WIDTH+j];
-        }
-    }
-    writeIntermediatoryImage();
-}
-
-void writeStichedImage(const char* outputFile) {
+void writeStichedImage(const char *outputFile) {
     FILE *fout;
     int i, j;
 
@@ -142,9 +141,10 @@ void writeStichedImage(const char* outputFile) {
 
     for (i = 0; i < HEIGHT; i++)
         for (j = 0; j < WIDTH; j++)
-            fprintf(fout, "%d\n", fullImage[i*WIDTH+j]);
+            fprintf(fout, "%d\n", fullImage[i * WIDTH + j]);
     fclose(fout);
 }
+
 void sendStripstoAllProcesses(int rank) {
     tempBuffer = new unsigned char[WIDTH * stripSize];
     MPI_Scatter(fullImage, stripSize * WIDTH, MPI_UNSIGNED_CHAR, tempBuffer, stripSize * WIDTH, MPI_UNSIGNED_CHAR, 0,
@@ -162,11 +162,7 @@ void sendStripstoAllProcesses(int rank) {
             }
         }
     }*/
-    for (int i = 0; i < stripSize; i++) {
-        for (int j = 0; j < WIDTH; j++) {
-            stripMatrix[i][j] = tempBuffer[i * WIDTH + j];
-        }
-    }
+
 
     outFile = new char[4];
     strcpy(outFile, "outn");
@@ -218,15 +214,14 @@ void horizontalStrips(int rank) {
 
 void readImageForStiching(char *inputFile) {
     //printf("I have to read now %s", inputFile);
-    free(stripImage);
-    stripImage = (unsigned char *) malloc(WIDTH * stripSize * sizeof(unsigned char *));
+
     int i, j, temp;
     //imshow("here", matrix);
     //waitKey(0);
     uint8_t *myData = stripImageMat.data;
     for (i = 0; i < stripSize; i++)
         for (j = 0; j < WIDTH; j++) {
-            stripImage[i * WIDTH + j] = myData[i*WIDTH+j];
+            stripImage[i * WIDTH + j] = myData[i * WIDTH + j];
         }
     //fclose(fin);
 }
@@ -236,12 +231,12 @@ void readImage(Mat matrix) {
     //Mat matrix = imread(inputFile, 0);
     WIDTH = matrix.cols;
     HEIGHT = matrix.rows;
-    fullImage = (unsigned char *) malloc(WIDTH * HEIGHT * sizeof(unsigned char *));
+
     //imshow("here", matrix);
     //waitKey(0);
     unsigned char *myData = matrix.data;
     for (i = 0; i < HEIGHT; i++)
         for (j = 0; j < WIDTH; j++) {
-            fullImage[i * WIDTH + j] = myData[i*WIDTH+j];
+            fullImage[i * WIDTH + j] = myData[i * WIDTH + j];
         }
 }

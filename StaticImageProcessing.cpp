@@ -46,14 +46,14 @@ Mat stripImageMat;
 int main(int argc, char *argv[]) {
     int i, j, bufferInt[20], rank;
     char imageFile[20];
-
+    double t1,t2;
     MPI_Status status;
     MPI_Request *requests;
     MPI_Status *statuses;
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &numberProcesses);
-
+    t1=MPI_Wtime();
     if (rank == 0) {
         cout << "Number of processes is " << numberProcesses << "\n";
         VideoCapture cap(0);
@@ -75,8 +75,7 @@ int main(int argc, char *argv[]) {
     MPI_Bcast(&MAX_COLOR, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     horizontalStrips(rank);
-    printf("\n[Process %d] Image Width: %d X %d => strip size: %d (%d..%d)\n",
-           rank, WIDTH, HEIGHT, stripSize, stripStart, stripEnd);
+    //printf("\n[Process %d] Image Width: %d X %d => strip size: %d (%d..%d)\n", rank, WIDTH, HEIGHT, stripSize, stripStart, stripEnd);
 
     stripMatrix = (unsigned char **) malloc(stripSize * sizeof(unsigned char *));
     for (i = 0; i < stripSize; i++) {
@@ -86,20 +85,25 @@ int main(int argc, char *argv[]) {
     stripImageMat = Mat(stripSize, WIDTH, CV_8U, stripMatrix);
     stripImageMat.data=tempBuffer;
     stripImageMat = stripImageMat(Rect(0,0, WIDTH, stripSize));
-    char winName[] = "window at rank ";
+    /*char winName[] = "window at rank ";
     winName[15] = rank+'0';
     winName[16] = '\0';
     imshow(winName, stripImageMat);
-    waitKey(0);
+    waitKey(0);*/
 
 
-    writeIntermediatoryImage();
+    //writeIntermediatoryImage();
     MPI_Barrier(MPI_COMM_WORLD);
     //TODO: Do whatever you wnant to. The intermediatory images are generated in "/res/it". Apply any filter or operation you want.
+    t1=MPI_Wtime();
     GaussianBlur(stripImageMat, stripImageMat, Size(7,7), 1.5, 1.5);
     Canny(stripImageMat, stripImageMat, 0, 30, 3);
+    t2 = MPI_Wtime();
+    cout<<"Finalized Time elapsed "<<t2-t1<<"\n";
     stichImages();
+
     if (rank==0) writeStichedImage("../res/final.pgm");
+    MPI_Barrier(MPI_COMM_WORLD);
     cleanUp();
     MPI_Finalize();
     return 0;
