@@ -1,10 +1,17 @@
+//
+// Created by kaushik on 23/2/17.
+//
+
 #include <iostream>
 #include "mpi.h"
 #include <strings.h>
 #include <cstring>
 #include <opencv2/opencv.hpp>
 
-void readImage(char *imageFile);
+using namespace std;
+using namespace cv;
+
+void readImage(Mat matrix);
 
 void horizontalStrips(int);
 
@@ -22,18 +29,19 @@ void writeStichedImage(const char string[17]);
 
 void validateStripImage();
 
-using namespace std;
-using namespace cv;
+
 
 
 int numberProcesses, WIDTH, HEIGHT, MAX_COLOR, stripSize, stripStart, stripEnd;
 
 unsigned char *fullImage, *stripImage;
 unsigned char **stripMatrix;
-short **imageResidual;
-short *fullImageResidual;
+//short **imageResidual;
+//short *fullImageResidual;
 char *outFile, *outputFile;
 unsigned char *tempBuffer;
+Mat stripImageMat;
+
 
 int main(int argc, char *argv[]) {
     int i, j, bufferInt[20], rank;
@@ -48,17 +56,15 @@ int main(int argc, char *argv[]) {
 
     if (rank == 0) {
         cout << "Number of processes is " << numberProcesses << "\n";
-        /*cout << "Enter file Name!\n";
-        scanf(" %s", imageFile);
-        readImage(imageFile);
-        */
-        readImage("../res/out.pgm");
+        VideoCapture cap(0);
+        Mat frame;
+        cap >> frame; // get a new frame from camera
+        cvtColor(frame, frame, COLOR_BGR2GRAY);
+        //readImage("../res/images.jpg");
+        readImage(frame);
         //Now for requests, allocate appropriate memory
         requests = (MPI_Request *) malloc(sizeof(MPI_Request) * numberProcesses);
         statuses = (MPI_Status *) malloc(sizeof(MPI_Status) * numberProcesses);
-        /*for(int i=0;i<HEIGHT;i++,printf("\n"))
-            for(int j=0;j<WIDTH;j++)
-                printf("%3d ",fullImage[i*WIDTH+j]);*/
     }
 
     //Start Communication
@@ -72,15 +78,26 @@ int main(int argc, char *argv[]) {
     printf("\n[Process %d] Image Width: %d X %d => strip size: %d (%d..%d)\n",
            rank, WIDTH, HEIGHT, stripSize, stripStart, stripEnd);
 
-    stripMatrix = (unsigned char **) malloc(stripSize * sizeof(unsigned int *));
-    for (int i = 0; i < stripSize; i++) {
+    stripMatrix = (unsigned char **) malloc(stripSize * sizeof(unsigned char *));
+    for (i = 0; i < stripSize; i++) {
         stripMatrix[i] = (unsigned char *) malloc(WIDTH * sizeof(unsigned char));
     }
-
     sendStripstoAllProcesses(rank);
+    stripImageMat = Mat(stripSize, WIDTH, CV_8U, stripMatrix);
+    stripImageMat.data=tempBuffer;
+    stripImageMat = stripImageMat(Rect(0,0, WIDTH, stripSize));
+    char winName[] = "window at rank ";
+    winName[15] = rank+'0';
+    winName[16] = '\0';
+    imshow(winName, stripImageMat);
+    waitKey(0);
+
+
     writeIntermediatoryImage();
     MPI_Barrier(MPI_COMM_WORLD);
     //TODO: Do whatever you wnant to. The intermediatory images are generated in "/res/it". Apply any filter or operation you want.
+    GaussianBlur(stripImageMat, stripImageMat, Size(7,7), 1.5, 1.5);
+    Canny(stripImageMat, stripImageMat, 0, 30, 3);
     stichImages();
     if (rank==0) writeStichedImage("../res/final.pgm");
     cleanUp();
@@ -97,8 +114,8 @@ void cleanUp() {
 
 void stichImages() {
     readImageForStiching(outputFile);
-    validateStripImage();
-    MPI_Gather(stripImage, WIDTH*stripSize, MPI_UNSIGNED_CHAR, fullImage,WIDTH*stripSize, MPI_UNSIGNED_CHAR, 0, MPI_COMM_WORLD);
+    //validateStripImage();
+    MPI_Gather(tempBuffer, WIDTH*stripSize, MPI_UNSIGNED_CHAR, fullImage,WIDTH*stripSize, MPI_UNSIGNED_CHAR, 0, MPI_COMM_WORLD);
 }
 
 void validateStripImage() {
@@ -119,7 +136,7 @@ void writeStichedImage(const char* outputFile) {
         exit(1);
     }
 
-    fprintf(fout, "%s\n%d %d\n%d\n", "P2", WIDTH, HEIGHT, MAX_COLOR);
+    fprintf(fout, "%s\n%d %d\n%d\n", "P2", WIDTH, HEIGHT, 256);
     fprintf(fout, "#Created by Kaushik\n");
 
     for (i = 0; i < HEIGHT; i++)
@@ -144,12 +161,12 @@ void sendStripstoAllProcesses(int rank) {
             }
         }
     }*/
-
     for (int i = 0; i < stripSize; i++) {
         for (int j = 0; j < WIDTH; j++) {
             stripMatrix[i][j] = tempBuffer[i * WIDTH + j];
         }
     }
+
     outFile = new char[4];
     strcpy(outFile, "outn");
     outFile[3] = rank + '0';
@@ -162,14 +179,14 @@ void writeIntermediatoryImage() {
     outputFile = new char[10];
     strcpy(outputFile, "../res/it/");
     strcat(outputFile, outFile);
-    printf("[Proces %c] Writing output file\n", outputFile[13]);
+    printf("[Process %c] Writing output file\n", outputFile[13]);
 
     if ((fout = fopen(outputFile, "w")) == NULL) {
         perror("Error opening output file");
         exit(1);
     }
 
-    fprintf(fout, "%s\n%d %d\n%d\n", "P2", WIDTH, stripSize, MAX_COLOR);
+    fprintf(fout, "%s\n%d %d\n%d\n", "P2", WIDTH, stripSize, 256);
     fprintf(fout, "#Created by Kaushik\n");
 
     for (i = 0; i < stripSize; i++)
@@ -199,14 +216,13 @@ void horizontalStrips(int rank) {
 }
 
 void readImageForStiching(char *inputFile) {
-    printf("I have to read now %s", inputFile);
+    //printf("I have to read now %s", inputFile);
     free(stripImage);
     stripImage = (unsigned char *) malloc(WIDTH * stripSize * sizeof(unsigned char *));
     int i, j, temp;
-    Mat matrix = imread(inputFile, 0);
     //imshow("here", matrix);
     //waitKey(0);
-    uint8_t *myData = matrix.data;
+    uint8_t *myData = stripImageMat.data;
     for (i = 0; i < stripSize; i++)
         for (j = 0; j < WIDTH; j++) {
             stripImage[i * WIDTH + j] = myData[i*WIDTH+j];
@@ -214,80 +230,17 @@ void readImageForStiching(char *inputFile) {
     //fclose(fin);
 }
 
-void readImage(char *inputFile) {
-    FILE *fin;
-    char data[70];
-
-    if ((fin = fopen(inputFile, "r")) == NULL) {
-        perror("Error opening input file");
-        exit(1);
-    }
-
-    printf("Reading input file HEADER:\n");
-
-    // Reading format
-    fscanf(fin, "%s", data);
-    while (data[0] == '#') // ignoring comments
-    {
-        printf("\tFound comment: %s", data);
-        fgets(data, 70, fin);
-        printf("%s", data);
-        fscanf(fin, "%s", data);
-    }
-    if (strcasecmp(data, "P2") != 0) {
-        printf("Illegal format type of input file. Expected encoding: \"P2\". "
-                       "Found encoding \"%s\"\n",
-               data);
-        exit(1);
-    } else
-        printf("\tFile format found for %s: %s\n", inputFile, data);
-
-    // Reading Width
-    fscanf(fin, "%s", data);
-    while (data[0] == '#') // ignoring comments
-    {
-        printf("\tFound comment: %s", data);
-        fgets(data, 70, fin);
-        printf("%s", data);
-        fscanf(fin, "%s", data);
-    }
-    sscanf(data, "%d", &WIDTH);
-    printf("\tImage width: %d\n", WIDTH);
-
-    // Reading Height
-    fscanf(fin, "%s", data);
-    while (data[0] == '#') // ignoring comments
-    {
-        printf("\tFound comment: %s", data);
-        fgets(data, 70, fin);
-        printf("%s", data);
-        fscanf(fin, "%s", data);
-    }
-    sscanf(data, "%d", &HEIGHT);
-    printf("\tImage height: %d\n", HEIGHT);
-
-    // Reading MAX_COLOR
-    fscanf(fin, "%s", data);
-    while (data[0] == '#') // ignoring comments
-    {
-        printf("\tFound comment: %s", data);
-        fgets(data, 70, fin);
-        printf("%s", data);
-        fscanf(fin, "%s", data);
-    }
-    sscanf(data, "%d", &MAX_COLOR);
-    printf("\tImage number of colors: %d\n", MAX_COLOR);
-
-    // Reading data
-
-    printf("Reading input file DATA.\n");
+void readImage(Mat matrix) {
+    int i, j;
+    //Mat matrix = imread(inputFile, 0);
+    WIDTH = matrix.cols;
+    HEIGHT = matrix.rows;
     fullImage = (unsigned char *) malloc(WIDTH * HEIGHT * sizeof(unsigned char *));
-    int i, j, temp;
-
+    //imshow("here", matrix);
+    //waitKey(0);
+    unsigned char *myData = matrix.data;
     for (i = 0; i < HEIGHT; i++)
         for (j = 0; j < WIDTH; j++) {
-            fscanf(fin, "%d", &temp);
-            fullImage[i * WIDTH + j] = temp;
+            fullImage[i * WIDTH + j] = myData[i*WIDTH+j];
         }
-    fclose(fin);
 }

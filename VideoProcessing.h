@@ -1,0 +1,14 @@
+//
+// Created by kaushik on 23/3/17.
+//
+
+#ifndef MPIIMAGEARCHITECTURE_VIDEOPROCESSING_H
+#define MPIIMAGEARCHITECTURE_VIDEOPROCESSING_H
+
+
+class VideoProcessing {
+
+};
+
+
+#endif //MPIIMAGEARCHITECTURE_VIDEOPROCESSING_H

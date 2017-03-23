@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/main.cpp" line="207" />
+    <bookmark url="file://$PROJECT_DIR$/SampleWorking.cpp" line="204" />
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" buildAllGenerated="true">
     <generated>
+      <config projectName="MPIImageArchitecture" targetName="MPIImageArchitectureSample" />
+      <config projectName="MPIImageArchitecture" targetName="MPIImageArchitectureVideo" />
+      <config projectName="MPIImageArchitecture" targetName="MPIImageArchitectureProject" />
+      <config projectName="MPIImageArchitecture" targetName="MPIImageArchitectureStatic" />
       <config projectName="MPIImageArchitecture" targetName="MPIImageArchitecture" />
     </generated>
   </component>
@@ -15,9 +19,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b55d1086-3857-407c-ba91-cc2badbeddbe" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/StaticImageProcessing.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/StaticImageProcessing.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/VideoProcessing.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/VideoProcessing.h" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/SampleWorking.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/MPIImageArchitecture.iml" afterPath="$PROJECT_DIR$/.idea/MPIImageArchitecture.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LICENSE" afterPath="$PROJECT_DIR$/LICENSE" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,20 +50,59 @@
       <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="22" column="40" lean-forward="true" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
+            <state relative-caret-position="554">
+              <caret line="38" column="48" lean-forward="false" selection-start-line="38" selection-start-column="48" selection-end-line="38" selection-end-column="48" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/main.cpp">
+      <file leaf-file-name="VideoProcessing.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/VideoProcessing.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="82" column="131" lean-forward="false" selection-start-line="82" selection-start-column="131" selection-end-line="82" selection-end-column="131" />
+            <state relative-caret-position="162">
+              <caret line="39" column="24" lean-forward="false" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="24" />
               <folding>
-                <element signature="e#0#19#0" expanded="true" />
+                <element signature="e#41#69#0" expanded="true" />
+                <marker date="1490290339571" expanded="true" signature="3040:3128" ph="{...}" />
+                <marker date="1490290339571" expanded="true" signature="3149:3347" ph="{...}" />
+                <marker date="1490290339571" expanded="true" signature="3375:3554" ph="{...}" />
+                <marker date="1490290339571" expanded="true" signature="3603:4010" ph="{...}" />
+                <marker date="1490290339571" expanded="true" signature="5007:5677" ph="{...}" />
+                <marker date="1490290339571" expanded="true" signature="5711:6286" ph="{...}" />
+                <marker date="1490290339571" expanded="true" signature="6795:7216" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="canny.cpp" pinned="false" current-in-tab="false">
+        <entry file="file:///opt/opencv-3.2.0/modules/imgproc/src/canny.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="211">
+              <caret line="844" column="0" lean-forward="false" selection-start-line="844" selection-start-column="0" selection-end-line="844" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StaticImageProcessing.h" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/StaticImageProcessing.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="13" column="36" lean-forward="false" selection-start-line="13" selection-start-column="36" selection-end-line="13" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StaticImageProcessing.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/StaticImageProcessing.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="131">
+              <caret line="201" column="66" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="245" selection-end-column="1" />
+              <folding>
+                <element signature="e#41#60#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -59,23 +112,43 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>MPIImageProcessing</find>
-      <find>out</find>
-      <find>read</find>
-      <find>writeda</find>
-      <find>../res/</find>
-      <find>24</find>
-      <find>write</find>
-      <find>stripMatr</find>
       <find>readd</find>
       <find>outputfile</find>
-      <find>main</find>
       <find>mat.create</find>
-      <find>readImageForStiching</find>
       <find>readimagefors</find>
+      <find>main</find>
+      <find>horiza</find>
+      <find>horizontalStrips</find>
+      <find>readImageForStiching</find>
+      <find>malloc</find>
+      <find>write</find>
+      <find>stripsize =</find>
+      <find>=&gt; strip size:</find>
+      <find>tcount</find>
+      <find>unsigned char</find>
+      <find>sendStripstoAllProcesses</find>
+      <find>stripmatrix</find>
+      <find>out.pgm</find>
+      <find>tigru</find>
+      <find>sendstrips</find>
+      <find>readImage</find>
+      <find>writeIntermediatoryImage</find>
+      <find>jpg</find>
+      <find>stripimagemat</find>
+      <find>here</find>
+      <find>readimage</find>
+      <find>validate</find>
+      <find>stichImages</find>
+      <find>edges</find>
+      <find>/2</find>
+      <find>MPIImageArchitectureProject</find>
     </findStrings>
     <replaceStrings>
       <replace>MPIImageArchitecture</replace>
+      <replace>uint8_t</replace>
+      <replace>uchar</replace>
+      <replace>stripImageMat</replace>
+      <replace>MPIImageArchitectureStatic</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -84,8 +157,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/SampleWorking.cpp" />
         <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/VideoProcessing.cpp" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
       </list>
     </option>
   </component>
@@ -97,10 +172,10 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1855" />
-    <option name="y" value="24" />
-    <option name="width" value="1855" />
-    <option name="height" value="1056" />
+    <option name="x" value="58" />
+    <option name="y" value="46" />
+    <option name="width" value="1851" />
+    <option name="height" value="1003" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -117,15 +192,29 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MPIImageArchitecture" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MPIImageArchitecture" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.deploy.options" />
     <property name="js.eslint.eslintPackage" value="" />
+    <property name="last_opened_file_path" value="/usr/bin/mpirun" />
   </component>
-  <component name="RunManager" selected="Application.Build All">
+  <component name="RunManager" selected="Application.MPIImageArchitectureStatic">
     <configuration default="true" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MPIImageArchitecture" TARGET_NAME="MPIImageArchitecture" CONFIG_NAME="Debug" TEST_MODE="SUITE_TEST">
       <envs />
       <method />
@@ -293,17 +382,22 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="MPIImageArchitecture" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MPIImageArchitecture" TARGET_NAME="MPIImageArchitecture" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MPIImageArchitecture" RUN_TARGET_NAME="MPIImageArchitecture">
+    <configuration default="false" name="MPIImageArchitectureSample" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-n 5 ./MPIImageArchitectureSample" WORKING_DIR="file://$PROJECT_DIR$/cmake-build-debug" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MPIImageArchitecture" TARGET_NAME="MPIImageArchitectureSample" CONFIG_NAME="Debug" RUN_PATH="/usr/bin/mpirun">
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="Build All" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MPIImageArchitecture" RUN_TARGET_NAME="MPIImageArchitecture" EXPLICIT_BUILD_TARGET_NAME="all">
+    <configuration default="false" name="MPIImageArchitectureStatic" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-n 5 ./MPIImageArchitectureStatic" WORKING_DIR="file://$PROJECT_DIR$/cmake-build-debug" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MPIImageArchitecture" TARGET_NAME="MPIImageArchitectureStatic" CONFIG_NAME="Debug" RUN_PATH="/usr/bin/mpirun">
       <envs />
       <method />
     </configuration>
-    <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Application.MPIImageArchitecture" />
-      <item index="1" class="java.lang.String" itemvalue="Application.Build All" />
+    <configuration default="false" name="MPIImageArchitectureVideo" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-n 5 ./MPIImageArchitectureVideo" WORKING_DIR="file://$PROJECT_DIR$/cmake-build-debug" PASS_PARENT_ENVS_2="true" PROJECT_NAME="MPIImageArchitecture" TARGET_NAME="MPIImageArchitectureVideo" CONFIG_NAME="Debug" RUN_PATH="/usr/bin/mpirun">
+      <envs />
+      <method />
+    </configuration>
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="Application.MPIImageArchitectureSample" />
+      <item index="1" class="java.lang.String" itemvalue="Application.MPIImageArchitectureStatic" />
+      <item index="2" class="java.lang.String" itemvalue="Application.MPIImageArchitectureVideo" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
@@ -325,34 +419,37 @@
       <workItem from="1488633069120" duration="1427000" />
       <workItem from="1488657761669" duration="9500000" />
       <workItem from="1488722095166" duration="5810000" />
+      <workItem from="1488897163864" duration="97000" />
+      <workItem from="1490257623297" duration="1109000" />
+      <workItem from="1490260670790" duration="25345000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37801000" />
+    <option name="totallyTimeSpent" value="64352000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1855" y="24" width="1855" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="58" y="46" width="1851" height="1003" extended-state="0" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25067386" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25229606" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32832617" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960325" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299595" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34871244" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -362,10 +459,66 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SampleWorking.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#19#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SampleWorking.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1710">
+          <caret line="95" column="1" lean-forward="true" selection-start-line="95" selection-start-column="1" selection-end-line="95" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#19#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="22" column="40" lean-forward="true" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SampleWorking.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#19#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -374,12 +527,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
+    <entry file="file://$PROJECT_DIR$/SampleWorking.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -392,12 +545,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
+    <entry file="file://$PROJECT_DIR$/SampleWorking.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -410,12 +563,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
+    <entry file="file://$PROJECT_DIR$/SampleWorking.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1692">
           <caret line="94" column="18" lean-forward="false" selection-start-line="94" selection-start-column="18" selection-end-line="94" selection-end-column="18" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -428,12 +581,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
+    <entry file="file://$PROJECT_DIR$/SampleWorking.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -446,12 +599,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
+    <entry file="file://$PROJECT_DIR$/SampleWorking.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -464,12 +617,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
+    <entry file="file://$PROJECT_DIR$/SampleWorking.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="864">
           <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -482,12 +635,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
+    <entry file="file://$PROJECT_DIR$/SampleWorking.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
           <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -500,12 +653,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
+    <entry file="file://$PROJECT_DIR$/SampleWorking.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -517,21 +670,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+    <entry file="file:///usr/local/include/opencv2/core/hal/interface.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="22" column="40" lean-forward="true" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
+        <state relative-caret-position="792">
+          <caret line="46" column="25" lean-forward="false" selection-start-line="46" selection-start-column="25" selection-end-line="46" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
+    <entry file="file://$PROJECT_DIR$/SampleWorking.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="82" column="131" lean-forward="false" selection-start-line="82" selection-start-column="131" selection-end-line="82" selection-end-column="131" />
+        <state relative-caret-position="526">
+          <caret line="152" column="28" lean-forward="true" selection-start-line="149" selection-start-column="4" selection-end-line="152" selection-end-column="28" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/include/opencv2/core/mat.inl.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="332" column="5" lean-forward="false" selection-start-line="332" selection-start-column="5" selection-end-line="332" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/opencv-3.2.0/modules/imgproc/src/canny.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="844" column="0" lean-forward="false" selection-start-line="844" selection-start-column="0" selection-end-line="844" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VideoProcessing.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StaticImageProcessing.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="201" column="66" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="245" selection-end-column="1" />
+          <folding>
+            <element signature="e#41#60#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VideoProcessing.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="39" column="24" lean-forward="false" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="24" />
+          <folding>
+            <element signature="e#41#69#0" expanded="true" />
+            <marker date="1490290339571" expanded="true" signature="3040:3128" ph="{...}" />
+            <marker date="1490290339571" expanded="true" signature="3149:3347" ph="{...}" />
+            <marker date="1490290339571" expanded="true" signature="3375:3554" ph="{...}" />
+            <marker date="1490290339571" expanded="true" signature="3603:4010" ph="{...}" />
+            <marker date="1490290339571" expanded="true" signature="5007:5677" ph="{...}" />
+            <marker date="1490290339571" expanded="true" signature="5711:6286" ph="{...}" />
+            <marker date="1490290339571" expanded="true" signature="6795:7216" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="554">
+          <caret line="38" column="48" lean-forward="false" selection-start-line="38" selection-start-column="48" selection-end-line="38" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StaticImageProcessing.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="36" lean-forward="false" selection-start-line="13" selection-start-column="36" selection-end-line="13" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
